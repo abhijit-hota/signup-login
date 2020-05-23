@@ -27,17 +27,17 @@ const userSchema = new mongoose.Schema({
 
 const User = mongoose.model("user", userSchema);
 
-// app.use("/views", express.static("./views"));
 app.set("view engine", "ejs");
 app.use(express.urlencoded({extended: false}));
 app.use("/public", express.static("./public"));
 
-
+//variable for storing error messages
 let msg = "";
-//Session Checking middleware
+
+//Session checking middleware
 const redirectToHome = (req, res, next) => {
     if (req.session.userId) {
-        res.redirect('/login-success');
+        res.redirect('/home');
     } else {
         next();
     }
@@ -49,21 +49,15 @@ const redirectToLogin = (req, res, next) => {
         next();
     }
 }
-//GETting pages
+//GETting routes
 app.get("/signup", redirectToHome, (req, res) => {
-    res.render("signup", {
-        msg
-    });
+    res.render("signup", { msg });
 });
 app.get("/login", redirectToHome, (req, res) => {
-    res.render("login", {
-        msg
-    });
+    res.render("login", { msg });
 });
-app.get("/login-success", redirectToLogin, async (req, res) => {
-    res.render("login-success", {
-        user: await User.findById(req.session.userId)
-    });
+app.get("/home", redirectToLogin, async (req, res) => {
+    res.render("home", { user: await User.findById(req.session.userId) });
 });
 
 //The SignUp system
@@ -86,7 +80,7 @@ app.post("/signup", async (req, res) => {
                 password: hashedPassword,
             }).save();
             req.session.userId = user._id;
-            res.render("login-success", {user});
+            res.redirect("/home");
         }
     } catch {
         msg = "Oops! An error occured. Please try again!";
@@ -104,12 +98,8 @@ app.post("/login", redirectToHome, async (req, res) => {
         } else {
             const passwordCorrect = await bcrypt.compare(req.body.password, user.password);
             if (passwordCorrect) {
-                // TODO: check this
                 req.session.userId = user._id;
-                const check = await User.findById(`ObjectId("${res.session.userId}")`);
-                console.log(check);
-                
-                res.render("login-success", {user});
+                res.redirect("/home");
             } else {
                 const err = "Wrong Password. Please try again.";
                 res.render("login", { msg: err });
@@ -121,7 +111,7 @@ app.post("/login", redirectToHome, async (req, res) => {
     }
 });
 
-//Log Out
+//Log Out system
 app.post('/logout', (req, res) => {
     req.session.destroy();
     res.redirect('/login');
