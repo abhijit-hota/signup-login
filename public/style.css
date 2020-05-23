@@ -1,0 +1,17 @@
+body{
+    display: flex;
+    height: 100%;
+    width: 100%;
+}
+.container{
+    height: 80%;
+    width: 100%;
+    max-width: 300px;
+    max-height: 400px;
+    background-color: cornflowerblue;
+    border-radius: 10px;
+    box-shadow: black;
+    align-self: center;
+    justify-self: center;
+    text-align: center;
+}

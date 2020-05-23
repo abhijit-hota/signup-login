@@ -1,5 +1,6 @@
 #VScode config folder
 /.vscode
+/tests
 
 # Logs
 logs
