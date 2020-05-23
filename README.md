@@ -16,3 +16,4 @@
 ### To-Dos
 - Improve styling.
 - Work on modularizig code.
+- Comment important parts.
