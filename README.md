@@ -1,2 +1,18 @@
-# signup-login
-An implementation of the Sign up and Log In system using node.js, express and ejs
+# A basic LogIn and register system using Node.js
+
+### Modules used:  
+- **express** as a framework for routing, rendering, etc.
+- **mongoose** for MongoDB connection handling.
+- **ejs** as template engine.
+- **bcrypt** for hashing passwords.
+- **connect-mongo** as a session store.
+- **express-session** for handling sessions.
+
+### Try the code:
+- ```npm install```
+- Go to ```localhost:3000/signup```
+- That's it!
+
+### To-do
+- Improve styling.
+- Work on modularizig code.
