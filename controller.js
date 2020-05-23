@@ -34,7 +34,7 @@ app.use("/public", express.static("./public"));
 
 
 let msg = "";
-let dummyUser = {firstName: "dummmy", lastName: "faf", email: "dummy"};
+let dummyUser = {firstName: "dummmy", lastName: "dummy", email: "dummy@dummy.com"};
 //Session Checking middleware
 const redirectToHome = (req, res, next) => {
     if (req.session.userId) {
