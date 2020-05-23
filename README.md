@@ -1,4 +1,4 @@
-# A basic LogIn and register system using Node.js
+# A basic Log-In and Register system using Node.js
 
 ### Modules used:  
 - **express** as a framework for routing, rendering, etc.
@@ -13,6 +13,6 @@
 - Go to ```localhost:3000/signup```
 - That's it!
 
-### To-do
+### To-Dos
 - Improve styling.
 - Work on modularizig code.
