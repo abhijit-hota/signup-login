@@ -34,7 +34,6 @@ app.use("/public", express.static("./public"));
 
 
 let msg = "";
-let dummyUser = {firstName: "dummmy", lastName: "dummy", email: "dummy@dummy.com"};
 //Session Checking middleware
 const redirectToHome = (req, res, next) => {
     if (req.session.userId) {
@@ -61,9 +60,9 @@ app.get("/login", redirectToHome, (req, res) => {
         msg
     });
 });
-app.get("/login-success", redirectToLogin, (req, res) => {
+app.get("/login-success", redirectToLogin, async (req, res) => {
     res.render("login-success", {
-        user: dummyUser
+        user: await User.findById(req.session.userId)
     });
 });
 
@@ -87,7 +86,6 @@ app.post("/signup", async (req, res) => {
                 password: hashedPassword,
             }).save();
             req.session.userId = user._id;
-            // dummyUser = Object.assign({}, user);
             res.render("login-success", {user});
         }
     } catch {
@@ -108,6 +106,9 @@ app.post("/login", redirectToHome, async (req, res) => {
             if (passwordCorrect) {
                 // TODO: check this
                 req.session.userId = user._id;
+                const check = await User.findById(`ObjectId("${res.session.userId}")`);
+                console.log(check);
+                
                 res.render("login-success", {user});
             } else {
                 const err = "Wrong Password. Please try again.";
