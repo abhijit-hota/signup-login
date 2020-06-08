@@ -17,3 +17,4 @@
 - Improve styling.
 - Work on modularizig code.
 - Comment important parts.
+- Integrate with the todo app maybe?
